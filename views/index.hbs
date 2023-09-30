@@ -1,0 +1,70 @@
+<div class="container mt-3">
+  <div class="row">
+    <!-- Search Bar -->
+    <div class="col-md-12 mb-3">
+      <form class="d-flex" action="/users/search" method="get">
+        <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+
+    <!-- Tutor List -->
+    <div class="col-md-12 col-12 mx-auto">
+      <div class="row">
+        <!-- First Card -->
+        <div class="col-sm-4">
+          <a href="/users/tutors/{{tutor.id}}" class="card mb-3" style="text-decoration: none;">
+            <div class="row p-3">
+              <div class="col-4">
+                <img src="..." class="card-img-top" alt="...">
+              </div>
+              <div class="col-8">
+                <strong>Name</strong>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Second Card -->
+        <div class="col-sm-4">
+          <a href="/users/tutors/{{tutor.id}}" class="card mb-3" style="text-decoration: none;">
+            <div class="row p-3">
+              <div class="col-4">
+                <img src="..." class="card-img-top" alt="...">
+              </div>
+              <div class="col-8">
+                <strong>Name</strong>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Third Card -->
+        <div class="col-sm-4">
+          <a href="/users/tutors/{{tutor.id}}" class="card mb-3" style="text-decoration: none;">
+            <div class="row p-3">
+              <div class="col-4">
+                <img src="..." class="card-img-top" alt="...">
+              </div>
+              <div class="col-8">
+                <strong>Name</strong>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
