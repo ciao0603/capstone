@@ -4,7 +4,7 @@ const authenticated = (req, res, next) => {
   if (ensureAuthenticated(req)) {
     return next()
   }
-  req.flash('error_msg', '使用者驗證未通過!')
+  req.flash('error_msg', '請先登入才可使用!')
   res.redirect('/signin')
 }
 
