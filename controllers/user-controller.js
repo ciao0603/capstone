@@ -30,7 +30,12 @@ const userController = {
     res.render('signin')
   },
   signIn: (req, res, next) => {
-
+    req.flash('success_msg', '登入成功!')
+    res.redirect('/users/tutors')
+  },
+  logOut: (req, res, next) => {
+    req.logout()
+    res.redirect('/signin')
   },
   getTutors: (req, res, next) => {
     res.render('index')
