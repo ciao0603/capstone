@@ -2,7 +2,7 @@
   <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
     <div class="container-fluid">
       <div style="width: 120px;">
-        <a class="navbar-brand" href="/" style="text-decoration: none; color: black;">
+        <a class="navbar-brand" href="/users/tutors" style="text-decoration: none; color: black;">
           <i class="fa-solid fa-cloud"></i>
           <strong style="font-size: 24px;">Tutor</strong>
         </a>
@@ -16,7 +16,7 @@
         </div>
         {{else}}
         <div>
-          <a href="/users/:id" id="name-link" class="mx-1"
+          <a href="/users/{{user.id}}" id="name-link" class="mx-1"
             style="text-decoration: none; color: black; font-size: 16px;">Name</a>
           <a href="/tutors/create" id="become-teacher-link" class="mx-1"
             style="text-decoration: none; color: black; font-size: 16px;">成為老師</a>
