@@ -24,7 +24,8 @@ const userController = {
           email,
           password: hash,
           name: faker.name.findName(),
-          introduction: faker.lorem.text()
+          introduction: faker.lorem.text(),
+          image: `https://loremflickr.com/g/350/350/portrait/?random=${(Math.random() * 100)}`
         })
       })
       .then(() => res.redirect('/users/tutors'))
@@ -53,13 +54,42 @@ const userController = {
       .catch(err => next(err))
   },
   getUser: (req, res, next) => {
-    const { id } = req.user
+    const { id } = req.params
     User.findByPk(id, {
       raw: true
     })
       .then(user => {
         if (!user) throw new Error('使用者尚未註冊!')
         res.render('user', { user })
+      })
+      .catch(err => next(err))
+  },
+  editUser: (req, res, next) => {
+    const { id } = req.params
+    User.findByPk(id, {
+      raw: true
+    })
+      .then(user => {
+        if (!user) throw new Error('使用者尚未註冊!')
+        res.render('user-edit', { user })
+      })
+      .catch(err => next(err))
+  },
+  putUser: (req, res, next) => {
+    const { id } = req.params
+    const { name, introduction } = req.body
+    console.log(id)
+    User.findByPk(id)
+      .then(user => {
+        if (!user) throw new Error('使用者尚未註冊!')
+        return user.update({
+          name,
+          introduction
+        })
+      })
+      .then(() => {
+        req.flash('success_msg', '修改成功!')
+        res.redirect(`/users/${id}`)
       })
       .catch(err => next(err))
   }

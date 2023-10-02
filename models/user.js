@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     is_teacher: DataTypes.BOOLEAN,
     introduction: DataTypes.TEXT,
     total_hours: DataTypes.INTEGER,
-    nation: DataTypes.STRING
+    nation: DataTypes.STRING,
+    image: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',

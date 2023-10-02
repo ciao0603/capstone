@@ -7,7 +7,9 @@ const { errorHandler } = require('../middleware/error-handler')
 const userController = require('../controllers/user-controller')
 
 router.get('/users/tutors', authenticated, userController.getTutors)
+router.get('/users/:id/edit', authenticated, userController.editUser)
 router.get('/users/:id', authenticated, userController.getUser)
+router.put('/users/:id', authenticated, userController.putUser)
 
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)

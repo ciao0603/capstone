@@ -1,0 +1,15 @@
+<div class="container">
+  <form action="/users/{{user.id}}?_method=PUT" method="POST">
+    <div class="form-row mb-3">
+      <input class="form-control" id="name" type="text" name="name" class="form-control" placeholder="Name"
+        value="{{user.name}}" required>
+    </div>
+    <div class="form-row mb-3">
+      <input class="form-control" id="Introduction" type="text" name="Introduction" class="form-control"
+        placeholder="Introduction" value="{{user.introduction}}" required>
+    </div>
+    <div>
+      <button class="btn btn-primary btn-block" type="submit">Summit</button>
+    </div>
+  </form>
+</div>
