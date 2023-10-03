@@ -2,7 +2,19 @@ const { User, Tutor } = require('../models')
 
 const tutorController = {
   createTutor: (req, res, next) => {
-    res.render('tutor-create')
+    const { id, email, isTeacher } = req.user
+    if (isTeacher) {
+      Promise.all([
+        Tutor.findOne({ where: { email }, raw: true }),
+        User.findByPk(id, { raw: true })
+      ])
+        .then(([tutor, user]) => res.render('tutor-create', { tutor, user }))
+        .catch(err => next(err))
+    } else {
+      User.findByPk(id, { raw: true })
+        .then(user => res.render('tutor-create', { user }))
+        .catch(err => next(err))
+    }
   },
   postTutor: (req, res, next) => {
     const { introduction, style, duration, link, availableDays } = req.body
@@ -16,7 +28,7 @@ const tutorController = {
           Tutor.create({
             name, image, email, introduction, style, duration, link, availableDays: selectedDays
           }),
-          user.update({ is_teacher: true })
+          user.update({ isTeacher: true })
         ])
       })
       .then(([tutor, user]) => res.redirect(`/tutors/${tutor.id}`))

@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
 const faker = require('faker')
 
-const { User } = require('../models')
+const { User, Tutor } = require('../models')
 
 const userController = {
   signUpPage: (req, res, next) => {
@@ -43,14 +43,12 @@ const userController = {
     res.redirect('/signin')
   },
   getTutors: (req, res, next) => {
-    const { id } = req.user
-    User.findByPk(id, {
-      raw: true
-    })
-      .then(user => {
-        if (!user) throw new Error('使用者尚未註冊!')
-        res.render('index', { user })
-      })
+    const { id, email } = req.user
+    Promise.all([
+      Tutor.findOne({ where: { email }, raw: true }),
+      User.findByPk(id, { raw: true })
+    ])
+      .then(([tutor, user]) => res.render('index', { tutor, user }))
       .catch(err => next(err))
   },
   getUser: (req, res, next) => {
@@ -59,7 +57,6 @@ const userController = {
       raw: true
     })
       .then(user => {
-        if (!user) throw new Error('使用者尚未註冊!')
         res.render('user', { user })
       })
       .catch(err => next(err))
