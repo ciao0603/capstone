@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     style: DataTypes.TEXT,
     link: DataTypes.STRING,
     duration: DataTypes.INTEGER,
-    availableDays: DataTypes.INTEGER
+    availableDays: DataTypes.INTEGER,
+    email: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Tutor',

@@ -1,0 +1,89 @@
+{{!-- introduction --}}
+<div class="form-row mb-5">
+  <label class="form-label mb-4" for="introduction"><strong>
+      Your Introduction
+    </strong></label>
+  <input class="form-control" type="text" name="introduction" id="introduction" placeholder="Text"
+    value="{{tutor.introduction}}">
+</div>
+{{!-- style --}}
+<div class="form-row mb-5">
+  <label class="form-label mb-4" for="style"><strong>
+      Your Teaching Style
+    </strong></label>
+  <input class="form-control" type="text" name="style" id="style" placeholder="Text" value="{{tutor.style}}">
+</div>
+{{!-- duration --}}
+<div class="form-row mb-3">
+  <label class="form-label" for="duration"><strong>
+      單堂課程時間 (分鐘)
+    </strong></label>
+  <select class="form-control" id="duration" name="duration">
+    <option value="30" selected>30 分鐘
+    </option>
+    <option value="60">60 分鐘
+    </option>
+  </select>
+</div>
+{{!-- link --}}
+<div class="form-row mb-3">
+  <label class="form-label" for="link"><strong>
+      課程視訊連結
+    </strong></label>
+  <input class="form-control" type="text" name="link" id="link" placeholder="Text" value="{{tutor.link}}">
+</div>
+{{!-- available days --}}
+<div class="form-row mb-3">
+  <div class="form-label"><strong>開放預約</strong></div>
+  {{!-- monday --}}
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="monday" value="1" checked>
+    <label class="form-check-label" for="monday"><strong>
+        Mon.
+      </strong></label>
+  </div>
+  {{!-- tuesday --}}
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="tuesday" value="2">
+    <label class="form-check-label" for="tuesday"><strong>
+        Tue.
+      </strong></label>
+  </div>
+  {{!-- wednesday --}}
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="wednesday" value="3">
+    <label class="form-check-label" for="wednesday"><strong>
+        Wed.
+      </strong></label>
+  </div>
+  {{!-- thursday --}}
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="thursday" value="4">
+    <label class="form-check-label" for="thursday"><strong>
+        Thur.
+      </strong></label>
+  </div>
+  {{!-- friday --}}
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="friday" value="5">
+    <label class="form-check-label" for="friday"><strong>
+        Fri.
+      </strong></label>
+  </div>
+  {{!-- saturday --}}
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="saturday" value="6">
+    <label class="form-check-label" for="saturday"><strong>
+        Sat.
+      </strong></label>
+  </div>
+  {{!-- sunday --}}
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="sunday" value="7">
+    <label class="form-check-label" for="sunday"><strong>
+        Sun.
+      </strong></label>
+  </div>
+</div>
+
+<button type="submit" class="btn btn-primary">Summit</button>
