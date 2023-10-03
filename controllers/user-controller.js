@@ -28,7 +28,7 @@ const userController = {
           image: `https://loremflickr.com/g/350/350/portrait/?random=${(Math.random() * 100)}`
         })
       })
-      .then(() => res.redirect('/users/tutors'))
+      .then(() => res.redirect('/signin'))
       .catch(err => next(err))
   },
   signInPage: (req, res, next) => {
