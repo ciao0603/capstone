@@ -10,60 +10,23 @@
     <!-- Tutor List -->
     <div class="col-md-12 col-12 mx-auto">
       <div class="row">
-        <!-- First Card -->
+        {{#each tutors}}
         <div class="col-sm-4">
-          <a href="/users/tutors/{{tutor.id}}" class="card mb-3" style="text-decoration: none;">
-            <div class="row p-3">
+          <a href="/users/tutors/{{this.id}}" class="card mb-3" style="text-decoration: none;">
+            <div class="card-body row">
               <div class="col-4">
-                <img src="..." class="card-img-top" alt="...">
+                <img src="{{this.image}}" class="card-img-top" alt="...">
               </div>
               <div class="col-8">
-                <strong>Name</strong>
+                <strong>{{this.name}}</strong>
               </div>
             </div>
             <div class="card-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+              <p class="card-text">{{this.introduction}}</p>
             </div>
           </a>
         </div>
-
-        <!-- Second Card -->
-        <div class="col-sm-4">
-          <a href="/users/tutors/{{tutor.id}}" class="card mb-3" style="text-decoration: none;">
-            <div class="row p-3">
-              <div class="col-4">
-                <img src="..." class="card-img-top" alt="...">
-              </div>
-              <div class="col-8">
-                <strong>Name</strong>
-              </div>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Third Card -->
-        <div class="col-sm-4">
-          <a href="/users/tutors/{{tutor.id}}" class="card mb-3" style="text-decoration: none;">
-            <div class="row p-3">
-              <div class="col-4">
-                <img src="..." class="card-img-top" alt="...">
-              </div>
-              <div class="col-8">
-                <strong>Name</strong>
-              </div>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            </div>
-          </a>
-        </div>
-
+        {{/each}}
       </div>
     </div>
   </div>

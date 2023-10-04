@@ -44,8 +44,18 @@ const userController = {
   },
   getTutors: (req, res, next) => {
     const { email } = req.user
-    Tutor.findOne({ where: { email }, raw: true })
-      .then((tutor) => res.render('index', { tutor }))
+    Promise.all([
+      Tutor.findAll({ raw: true }),
+      Tutor.findOne({ where: { email }, raw: true })
+    ])
+
+      .then(([tutors, tutor]) => {
+        const data = tutors.map(t => ({
+          ...t,
+          introduction: t.introduction.substring(0, 100) + '...'
+        }))
+        res.render('index', { tutors: data, tutor })
+      })
       .catch(err => next(err))
   },
   getUser: (req, res, next) => {
