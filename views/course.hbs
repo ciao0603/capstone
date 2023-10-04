@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="row mb-4">
+        <div class="col-5">
+          <img src="{{tutor.image}}" class="card-img-top" alt="...">
+        </div>
+        <div class="col-7 d-flex flex-column justify-content-end">
+          <h2><strong>{{tutor.name}}</strong></h2>
+          <strong><i class="fa-solid fa-heart" style="color: #ee3211;"></i> 4.5</strong>
+        </div>
+      </div>
+      <div>
+        <p class="mb-2"><strong class="mb-3">Introduction</strong></p>
+        <div class="mb-4" style="word-wrap: break-word;">
+          {{tutor.introduction}}
+        </div>
+        <p class="mb-2"><strong class="mb-3">Teching Style</strong></p>
+        <div class="mb-4" style="word-wrap: break-word;">
+          {{tutor.style}}
+        </div>
+        <p class="mb-2"><strong class="mb-3">Lesson History</strong></p>
+        <div class="mb-4">
+          {{!-- #each comments --}}
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <form action="/courses" method="POST">
+        <div class="form-label  p-2 mb-4 bg-secondary bg-opacity-50" for="time"><strong>
+            預約上課
+          </strong></div>
+        <select class="form-select" id="time" name="time">
+          <option>Time</option>
+          {{!-- #each times --}}
+          <option value="{{time}}">10/4 (三) 18:00-18:30</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <div class="mt-4 text-end">
+          <button type="submit" class="btn btn-primary">Summit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ const userController = require('../controllers/user-controller')
 const tutorController = require('../controllers/tutor-controller')
 
 router.get('/users/tutors', authenticated, userController.getTutors)
+router.get('/users/tutors/:id', authenticated, userController.getCourse)
 router.get('/users/:id/edit', authenticated, userController.editUser)
 router.get('/users/:id', authenticated, userController.getUser)
 router.put('/users/:id', authenticated, userController.putUser)
