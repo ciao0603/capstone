@@ -43,12 +43,9 @@ const userController = {
     res.redirect('/signin')
   },
   getTutors: (req, res, next) => {
-    const { id, email } = req.user
-    Promise.all([
-      Tutor.findOne({ where: { email }, raw: true }),
-      User.findByPk(id, { raw: true })
-    ])
-      .then(([tutor, user]) => res.render('index', { tutor, user }))
+    const { email } = req.user
+    Tutor.findOne({ where: { email }, raw: true })
+      .then((tutor) => res.render('index', { tutor }))
       .catch(err => next(err))
   },
   getUser: (req, res, next) => {

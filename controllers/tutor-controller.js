@@ -2,19 +2,9 @@ const { User, Tutor } = require('../models')
 
 const tutorController = {
   createTutor: (req, res, next) => {
-    const { id, email, isTeacher } = req.user
-    if (isTeacher) {
-      Promise.all([
-        Tutor.findOne({ where: { email }, raw: true }),
-        User.findByPk(id, { raw: true })
-      ])
-        .then(([tutor, user]) => res.render('tutor-create', { tutor, user }))
-        .catch(err => next(err))
-    } else {
-      User.findByPk(id, { raw: true })
-        .then(user => res.render('tutor-create', { user }))
-        .catch(err => next(err))
-    }
+    const { isTeacher } = req.user
+    if (isTeacher) throw new Error('目前已是老師!')
+    res.render('tutor-create')
   },
   postTutor: (req, res, next) => {
     const { introduction, style, duration, link, availableDays } = req.body
@@ -35,26 +25,20 @@ const tutorController = {
       .catch(err => next(err))
   },
   getTutor: (req, res, next) => {
-    const { id, email } = req.user
-    Promise.all([
-      Tutor.findOne({ where: { email }, raw: true }),
-      User.findByPk(id, { raw: true })
-    ])
-      .then(([tutor, user]) => {
+    const { email } = req.user
+    Tutor.findOne({ where: { email }, raw: true })
+      .then((tutor) => {
         if (!tutor) throw new Error('尚未成為老師!')
-        res.render('tutor', { tutor, user })
+        res.render('tutor', { tutor })
       })
       .catch(err => next(err))
   },
   editTutor: (req, res, next) => {
-    const { id, email } = req.user
-    Promise.all([
-      Tutor.findOne({ where: { email }, raw: true }),
-      User.findByPk(id, { raw: true })
-    ])
-      .then(([tutor, user]) => {
+    const { email } = req.user
+    Tutor.findOne({ where: { email }, raw: true })
+      .then((tutor) => {
         if (!tutor) throw new Error('尚未成為老師!')
-        res.render('tutor-edit', { tutor, user })
+        res.render('tutor-edit', { tutor })
       })
       .catch(err => next(err))
   },

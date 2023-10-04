@@ -8,15 +8,15 @@
         </a>
       </div>
       <div class=" d-flex flex-grow-1 justify-content-between">
-        {{#if user}}
-        {{#if user.isAdmin}}
+        {{#if reqUser}}
+        {{#if reqUser.dataValues.isAdmin}}
         <div>
           <a href="/admin" id="become-teacher-link" class="mx-1"
             style="text-decoration: none; color: black; font-size: 16px;">使用者清單</a>
         </div>
         {{else}}
         <div>
-          <a {{#if tutor}}href="/tutors/{{tutor.id}}" {{else}}href="/users/{{user.id}}" {{/if}}id="name-link"
+          <a {{#if tutor}}href="/tutors/{{tutor.id}}" {{else}}href="/users/{{reqUser.dataValues.id}}" {{/if}}id="name-link"
             class="mx-1" style="text-decoration: none; color: black; font-size: 16px;">Name</a>
           <a href="/tutors/create" id="become-teacher-link" class="mx-1"
             style="text-decoration: none; color: black; font-size: 16px;">成為老師</a>

@@ -29,7 +29,7 @@ app.use(flash())
 app.use((req, res, next) => {
   res.locals.error_msg = req.flash('error_msg')
   res.locals.success_msg = req.flash('success_msg')
-  res.locals.user = getUser(req)
+  res.locals.reqUser = getUser(req)
   next()
 })
 
