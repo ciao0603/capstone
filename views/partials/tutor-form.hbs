@@ -19,9 +19,9 @@
       單堂課程時間 (分鐘)
     </strong></label>
   <select class="form-control" id="duration" name="duration">
-    <option value="30" selected>30 分鐘
+    <option value="30" {{#ifEqual tutor.duration 30}} selected{{/ifEqual}}>30 分鐘
     </option>
-    <option value="60">60 分鐘
+    <option value="60" {{#ifEqual tutor.duration 60}} selected{{/ifEqual}}>60 分鐘
     </option>
   </select>
 </div>
@@ -37,49 +37,49 @@
   <div class="form-label"><strong>開放預約</strong></div>
   {{!-- monday --}}
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" name="availableDays" id="monday" value="1" checked>
+    <input class="form-check-input" type="checkbox" name="availableDays" id="monday" value="1" {{#ifContain tutor.availableDays 1}}checked{{/ifContain}}>
     <label class="form-check-label" for="monday"><strong>
         Mon.
       </strong></label>
   </div>
   {{!-- tuesday --}}
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" name="availableDays" id="tuesday" value="2">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="tuesday" value="2" {{#ifContain tutor.availableDays 2}}checked{{/ifContain}}>
     <label class="form-check-label" for="tuesday"><strong>
         Tue.
       </strong></label>
   </div>
   {{!-- wednesday --}}
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" name="availableDays" id="wednesday" value="3">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="wednesday" value="3" {{#ifContain tutor.availableDays 3}}checked{{/ifContain}}>
     <label class="form-check-label" for="wednesday"><strong>
         Wed.
       </strong></label>
   </div>
   {{!-- thursday --}}
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" name="availableDays" id="thursday" value="4">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="thursday" value="4" {{#ifContain tutor.availableDays 4}}checked{{/ifContain}}>
     <label class="form-check-label" for="thursday"><strong>
         Thur.
       </strong></label>
   </div>
   {{!-- friday --}}
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" name="availableDays" id="friday" value="5">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="friday" value="5" {{#ifContain tutor.availableDays 5}}checked{{/ifContain}}>
     <label class="form-check-label" for="friday"><strong>
         Fri.
       </strong></label>
   </div>
   {{!-- saturday --}}
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" name="availableDays" id="saturday" value="6">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="saturday" value="6" {{#ifContain tutor.availableDays 6}}checked{{/ifContain}}>
     <label class="form-check-label" for="saturday"><strong>
         Sat.
       </strong></label>
   </div>
   {{!-- sunday --}}
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" name="availableDays" id="sunday" value="7">
+    <input class="form-check-input" type="checkbox" name="availableDays" id="sunday" value="7" {{#ifContain tutor.availableDays 7}}checked{{/ifContain}}>
     <label class="form-check-label" for="sunday"><strong>
         Sun.
       </strong></label>

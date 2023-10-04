@@ -16,7 +16,7 @@
         </div>
         {{else}}
         <div>
-          <a {{#if user.isTeacher}}href="/tutors/{{tutor.id}}" {{else}}href="/users/{{user.id}}" {{/if}}id="name-link"
+          <a {{#if tutor}}href="/tutors/{{tutor.id}}" {{else}}href="/users/{{user.id}}" {{/if}}id="name-link"
             class="mx-1" style="text-decoration: none; color: black; font-size: 16px;">Name</a>
           <a href="/tutors/create" id="become-teacher-link" class="mx-1"
             style="text-decoration: none; color: black; font-size: 16px;">成為老師</a>

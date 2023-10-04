@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+      <div class="m-2">
+        <img src="{{tutor.image}}" class="img-fluid" alt="頭像">
+        <div class="m-2">
+          <h2 class="fw-bold mb-3">{{tutor.name}}</h2>
+          <strong><i class="fa-solid fa-heart" style="color: #ee3211;"></i> 4.5</strong>
+          <br>
+          <strong><i class="fa-solid fa-user"></i> About Me</strong>
+          <p>{{tutor.introduction}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-7">
+      <div class="mb-4">
+        <p class="mb-2"><strong class="mb-3">New Schedule</strong>
+      </div>
+      <div class="mb-4">
+        <p class="mb-2"><strong class="mb-3">Your Teaching Style</strong>
+        </p>
+        <p>{{tutor.style}}</p>
+      </div>
+      <div class="mb-4">
+        <p class="mb-2"><strong class="mb-3">Recent Reviewed</strong>
+      </div>
+      <div class="m-3" style="text-align: right;">
+        <a class="btn btn-primary" style="font-size:12px;" href="/tutors/{{tutor.id}}/edit">Edit Profile & <br> Booking
+          Calender</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="container">
+  <form action="/tutors/{{tutor.id}}?_method=PUT" method="POST">
+  {{!-- name --}}
+  <div class="form-row mb-5">
+    <input class="form-control" type="text" name="name" id="name" placeholder="Name"
+      value="{{tutor.name}}">
+  </div>
+    {{>tutor-form}}
+  </form>
+</div>

@@ -13,6 +13,9 @@ router.get('/users/:id', authenticated, userController.getUser)
 router.put('/users/:id', authenticated, userController.putUser)
 
 router.get('/tutors/create', authenticated, tutorController.createTutor)
+router.get('/tutors/:id', authenticated, tutorController.getTutor)
+router.get('/tutors/:id/edit', authenticated, tutorController.editTutor)
+router.put('/tutors/:id', authenticated, tutorController.putTutor)
 router.post('/tutors', authenticated, tutorController.postTutor)
 
 router.get('/signup', userController.signUpPage)
