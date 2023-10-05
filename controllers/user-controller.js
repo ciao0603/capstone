@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const faker = require('faker')
 
 const { User, Tutor } = require('../models')
+const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
 const userController = {
   signUpPage: (req, res, next) => {
@@ -44,17 +45,30 @@ const userController = {
   },
   getTutors: (req, res, next) => {
     const { email } = req.user
+    const DEFAULT_LIMIT = 6
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || DEFAULT_LIMIT
+    const offset = getOffset(limit, page)
+
     Promise.all([
-      Tutor.findAll({ raw: true }),
+      Tutor.findAndCountAll({
+        limit,
+        offset,
+        raw: true
+      }),
       Tutor.findOne({ where: { email }, raw: true })
     ])
 
       .then(([tutors, tutor]) => {
-        const data = tutors.map(t => ({
+        const data = tutors.rows.map(t => ({
           ...t,
           introduction: t.introduction.substring(0, 100) + '...'
         }))
-        res.render('index', { tutors: data, tutor })
+        res.render('index', {
+          tutors: data,
+          tutor,
+          pagination: getPagination(limit, page, tutors.count)
+        })
       })
       .catch(err => next(err))
   },
