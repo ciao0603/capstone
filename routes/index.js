@@ -26,12 +26,12 @@ router.post('/tutors', authenticated, tutorController.postTutor)
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 router.get('/signin', userController.signInPage)
-router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
+router.post('/signin', passport.authenticate('local', { failureRedirect: '/signup', failureFlash: true }), userController.signIn)
 router.get('/logout', userController.logOut)
 
-// router.use('/', (req, res) => {
-//   res.redirect('/users/tutors')
-// })
+router.use('/', (req, res) => {
+  res.redirect('/users/tutors')
+})
 router.use('/', errorHandler)
 
 module.exports = router
