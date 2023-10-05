@@ -16,8 +16,13 @@
         </div>
         {{else}}
         <div>
-          <a {{#if tutor}}href="/tutors/{{tutor.id}}" {{else}}href="/users/{{reqUser.dataValues.id}}" {{/if}}id="name-link"
-            class="mx-1" style="text-decoration: none; color: black; font-size: 16px;">Name</a>
+          {{#if tutor}}
+          <a href="/tutors/{{tutor.id}}" id="name-link" class="mx-1 fw-bold"
+            style="text-decoration: none; color: black; font-size: 16px;">{{tutor.name}}</a>
+          {{else}}
+          <a href="/users/{{reqUser.dataValues.id}}" id="name-link" class="mx-1 fw-bold"
+            style="text-decoration: none; color: black; font-size: 16px;">{{reqUser.dataValues.name}}</a>
+          {{/if}}
           <a href="/tutors/create" id="become-teacher-link" class="mx-1"
             style="text-decoration: none; color: black; font-size: 16px;">成為老師</a>
         </div>
