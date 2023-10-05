@@ -26,6 +26,7 @@
       </div>
     </div>
     <div class="col-4">
+      {{#ifEqual reqUser.dataValues.isTeacher false}}
       <form action="/courses" method="POST">
         <div class="form-label  p-2 mb-4 bg-secondary bg-opacity-50" for="time"><strong>
             預約上課
@@ -41,6 +42,7 @@
           <button type="submit" class="btn btn-primary">Summit</button>
         </div>
       </form>
+      {{/ifEqual}}
     </div>
   </div>
 </div>
