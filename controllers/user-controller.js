@@ -58,6 +58,14 @@ const userController = {
       })
       .catch(err => next(err))
   },
+  searchTutors: (req, res, next) => {
+    const KEYWORD = req.query.keyword
+    const keyword = KEYWORD.toLowerCase()
+    Tutor.findAll({ raw: true })
+      .then(tutorList => tutorList.filter(tutor => tutor.name.toLowerCase().includes(keyword)))
+      .then(tutors => res.render('index', { tutors }))
+      .catch(err => next(err))
+  },
   getUser: (req, res, next) => {
     const { id } = req.params
     User.findByPk(id, {
