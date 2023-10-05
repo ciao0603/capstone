@@ -2,10 +2,13 @@ const express = require('express')
 const router = express.Router()
 
 const passport = require('../config/passport')
-const { authenticated } = require('../middleware/auth')
+const { authenticated, authenticatedAdmin } = require('../middleware/auth')
 const { errorHandler } = require('../middleware/error-handler')
+const admin = require('./modules/admin')
 const userController = require('../controllers/user-controller')
 const tutorController = require('../controllers/tutor-controller')
+
+router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/users/tutors', authenticated, userController.getTutors)
 router.get('/users/tutors/:id', authenticated, userController.getCourse)
