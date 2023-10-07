@@ -119,15 +119,6 @@ const userController = {
         res.redirect(`/users/${id}`)
       })
       .catch(err => next(err))
-  },
-  getCourse: (req, res, next) => {
-    const { id } = req.params
-    Tutor.findByPk(id, { raw: true })
-      .then(tutor => {
-        if (!tutor) throw new Error('這位家教不存在!')
-        res.render('course', { tutor })
-      })
-      .catch(err => next(err))
   }
 }
 

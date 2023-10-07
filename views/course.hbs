@@ -32,11 +32,9 @@
             預約上課
           </strong></div>
         <select class="form-select" id="time" name="time">
-          <option>Time</option>
-          {{!-- #each times --}}
-          <option value="{{time}}">10/4 (三) 18:00-18:30</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          {{#each times}}
+          <option value="{{this}}">{{this}} </option>
+          {{/each}}
         </select>
         <div class="mt-4 text-end">
           <button type="submit" class="btn btn-primary">Summit</button>

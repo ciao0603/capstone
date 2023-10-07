@@ -7,12 +7,13 @@ const { errorHandler } = require('../middleware/error-handler')
 const admin = require('./modules/admin')
 const userController = require('../controllers/user-controller')
 const tutorController = require('../controllers/tutor-controller')
+const courseController = require('../controllers/course-controller')
 
 router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/users/tutors', authenticated, userController.getTutors)
 router.get('/users/search', authenticated, userController.searchTutors)
-router.get('/users/tutors/:id', authenticated, userController.getCourse)
+router.get('/users/tutors/:id', authenticated, courseController.getCourse)
 router.get('/users/:id/edit', authenticated, userController.editUser)
 router.get('/users/:id', authenticated, userController.getUser)
 router.put('/users/:id', authenticated, userController.putUser)
@@ -29,9 +30,9 @@ router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signup', failureFlash: true }), userController.signIn)
 router.get('/logout', userController.logOut)
 
-router.use('/', (req, res) => {
-  res.redirect('/users/tutors')
-})
+// router.use('/', (req, res) => {
+//   res.redirect('/users/tutors')
+// })
 router.use('/', errorHandler)
 
 module.exports = router
