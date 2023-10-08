@@ -13,10 +13,12 @@ router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/users/tutors', authenticated, userController.getTutors)
 router.get('/users/search', authenticated, userController.searchTutors)
-router.get('/users/tutors/:id', authenticated, courseController.getCourse)
 router.get('/users/:id/edit', authenticated, userController.editUser)
 router.get('/users/:id', authenticated, userController.getUser)
 router.put('/users/:id', authenticated, userController.putUser)
+
+router.get('/users/tutors/:id', authenticated, courseController.getCourse)
+router.post('/courses/:id', authenticated, courseController.postCourse)
 
 router.get('/tutors/create', authenticated, tutorController.createTutor)
 router.get('/tutors/:id', authenticated, tutorController.getTutor)

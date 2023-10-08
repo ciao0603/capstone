@@ -27,13 +27,13 @@
     </div>
     <div class="col-4">
       {{#ifEqual reqUser.dataValues.isTeacher false}}
-      <form action="/courses" method="POST">
+      <form action="/courses/{{tutor.id}}" method="POST">
         <div class="form-label  p-2 mb-4 bg-secondary bg-opacity-50" for="time"><strong>
             預約上課
           </strong></div>
         <select class="form-select" id="time" name="time">
           {{#each times}}
-          <option value="{{this}}">{{this}} </option>
+          <option value="{{toJSON this}}">{{this.date}} ({{this.dayOfWeek}}) {{this.startTime}}-{{this.endTime}}</option>
           {{/each}}
         </select>
         <div class="mt-4 text-end">
