@@ -17,8 +17,8 @@
         {{else}}
         <div>
           {{#if tutor}}
-          <a href="/tutors/{{tutor.id}}" id="name-link" class="mx-1 fw-bold"
-            style="text-decoration: none; color: black; font-size: 16px;">{{tutor.name}}</a>
+          <a href="/tutors/{{reqUser.dataValues.tutorId}}" id="name-link" class="mx-1 fw-bold"
+            style="text-decoration: none; color: black; font-size: 16px;">{{reqUser.dataValues.name}}</a>
           {{else}}
           <a href="/users/{{reqUser.dataValues.id}}" id="name-link" class="mx-1 fw-bold"
             style="text-decoration: none; color: black; font-size: 16px;">{{reqUser.dataValues.name}}</a>

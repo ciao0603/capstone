@@ -18,10 +18,19 @@ const tutorController = {
           Tutor.create({
             name, image, email, introduction, style, duration, link, availableDays: selectedDays
           }),
-          user.update({ isTeacher: true })
+          user
         ])
       })
-      .then(([tutor, user]) => res.redirect(`/tutors/${tutor.id}`))
+      .then(([tutor, user]) => {
+        return Promise.all([
+          tutor,
+          user.update({
+            isTeacher: true,
+            tutorId: tutor.id
+          })
+        ])
+          .then(tutor => res.redirect(`/tutors/${tutor.id}`))
+      })
       .catch(err => next(err))
   },
   getTutor: (req, res, next) => {
@@ -43,13 +52,18 @@ const tutorController = {
       .catch(err => next(err))
   },
   putTutor: (req, res, next) => {
-    const { id } = req.params
+    const userId = req.user.id
+    const tutorId = req.params.id
     const { name, introduction, style, duration, link, availableDays } = req.body
     const selectedDays = Array.isArray(availableDays) ? availableDays.join('') : availableDays
     if (!(introduction && style && duration && link && availableDays)) throw new Error('尚有欄位未填!')
-    Tutor.findByPk(id)
-      .then(tutor => {
+    Promise.all([
+      Tutor.findByPk(tutorId),
+      User.findByPk(userId)
+    ])
+      .then(([tutor, user]) => {
         if (!tutor) throw new Error('老師不存在!')
+        user.update({ name: name })
         return tutor.update({
           name,
           introduction,
@@ -59,7 +73,7 @@ const tutorController = {
           availableDays: selectedDays
         })
       })
-      .then(() => res.redirect(`/tutors/${id}`))
+      .then(() => res.redirect(`/tutors/${tutorId}`))
       .catch(err => next(err))
   }
 }
