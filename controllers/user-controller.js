@@ -1,7 +1,11 @@
 const bcrypt = require('bcryptjs')
 const faker = require('faker')
+const dayjs = require('dayjs')
+const customParseFormat = require('dayjs/plugin/customParseFormat')
 
-const { User, Tutor } = require('../models')
+dayjs.extend(customParseFormat)
+
+const { User, Tutor, Course } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
 const userController = {
@@ -82,12 +86,37 @@ const userController = {
       .catch(err => next(err))
   },
   getUser: (req, res, next) => {
-    const { id } = req.params
-    User.findByPk(id, {
-      raw: true
-    })
-      .then(user => {
-        res.render('user', { user })
+    const userId = req.params.id
+    const SCHEDULE_LIMIT = 2
+    Promise.all([
+      User.findByPk(userId, { raw: true }),
+      Course.findAll({ where: { userId }, raw: true, nest: true, include: [Tutor] })
+    ])
+      .then(([user, courses]) => {
+        const now = dayjs()
+        const nowDate = now.format('YYYY-MM-DD')
+        // 先找出尚未開始的課程
+        courses = courses.filter(course => {
+          const date = dayjs(course.date)
+          const time = dayjs(course.startTime, 'HH:mm:ss')
+          course.date = date.format('YYYY-MM-DD')
+          course.startTime = course.startTime.substring(0, 5)
+          course.endTime = course.endTime.substring(0, 5)
+          return date.isAfter(now) || (course.date === nowDate && time.isAfter(now))
+        })
+        // 按照先後順序排
+        courses.sort((a, b) => {
+          const dateA = dayjs(a.date)
+          const dateB = dayjs(b.date)
+          const timeA = dayjs(a.startTime, 'HH:mm:ss')
+          const timeB = dayjs(b.startTime, 'HH:mm:ss')
+          // 若date相同就比time
+          return dateA - dateB || timeA - timeB
+        })
+        // 取最先的兩個
+        courses = courses.slice(0, SCHEDULE_LIMIT)
+        console.log(courses)
+        res.render('user', { user, courses })
       })
       .catch(err => next(err))
   },

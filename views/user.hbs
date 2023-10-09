@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-5">
+      {{!-- profile --}}
       <div class="m-2">
         <img src="{{user.image}}" class="img-fluid" alt="頭像">
         <div class="m-2">
@@ -13,8 +14,26 @@
       </div>
     </div>
     <div class="col-7">
-      <div>
-        new schedule
+      {{!-- new schedule --}}
+      <div class="mb-3">
+        <p class="mb-2"><strong>New Schedule</strong></p>
+        <div class="d-flex row">
+          {{#each courses}}
+          <div class="col-6 ">
+            <div class="border border-3 rounded-3 p-3">
+              <div>
+                <p class="mb-2"><strong>Time: </strong>{{this.date}} ({{this.dayOfWeek}}) {{this.startTime}}-{{this.endTime}}</p>
+              </div>
+              <div>
+                <p class="mb-2"><strong>Teacher's Name: </strong>{{this.Tutor.name}}</p>
+              </div>
+              <div>
+                <p class="mb-2"><strong>Session Link: </strong><a href="{{this.Tutor.link}}">{{this.Tutor.link}}</a></p>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
       </div>
       <div>
         lesson history
