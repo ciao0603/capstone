@@ -1,10 +1,8 @@
 const dayjs = require('dayjs')
+const { Op } = require('sequelize')
 // 設置dayjs為中文
 require('dayjs/locale/zh-cn')
 dayjs.locale('zh-cn')
-const utc = require('dayjs/plugin/utc') // 引入UTC插件
-// 啟用UTC插件
-dayjs.extend(utc)
 
 const { Tutor, Course } = require('../models')
 
@@ -50,20 +48,42 @@ const courseController = {
     const tutorId = req.params.id
     // 取得預約時間並轉成json
     const time = JSON.parse(req.body.time)
-    const { date, startTime, endTime } = time
+    const { date, dayOfWeek, startTime, endTime } = time
 
-    Course.findOne({ tutorId, startTime })
+    Course.findOne({
+      // where 同老師 、 同一天 且 同時間
+      where: { [Op.and]: [{ tutorId }, { date }, { startTime }] },
+      include: [Tutor]
+    })
       .then(course => {
-        if (course) { return }
+        if (course) return
+        console.log('create')
         return Course.create({
           date,
+          dayOfWeek,
           startTime,
           endTime,
           userId,
           tutorId
         })
       })
-      .then(newCourse => res.render('course-reserve', { course: newCourse }))
+      .then(newCourse => {
+        if (!newCourse) return
+        console.log('find')
+        return Course.findByPk(newCourse.id, {
+          raw: true,
+          nest: true,
+          include: [Tutor]
+        })
+      })
+      .then(reserve => {
+        if (reserve) {
+          reserve.date = dayjs(reserve.date).format('YYYY-MM-DD')
+          reserve.startTime = reserve.startTime.substring(0, 5)
+          reserve.endTime = reserve.endTime.substring(0, 5)
+        }
+        res.render('course-reserve', { course: reserve })
+      })
       .catch(err => next(err))
   }
 }

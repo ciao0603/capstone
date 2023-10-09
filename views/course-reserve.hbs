@@ -1,1 +1,28 @@
-預約資訊
+<div class="container border border-3 rounded-3 mt-3 col-md-6">
+  <div class="modal-dialog">
+    <div class="modal-content my-3">
+      <div class="modal-header d-flex justify-content-center my-3">
+        {{#if course}}
+        <h5 class="modal-title fw-bold">預約成功!</h5>
+      </div>
+      <div class="modal-body d-flex-row my-2">
+        <div>
+          <p class="fw-bold text-center p-1">{{course.date}} ({{course.dayOfWeek}}) {{course.startTime}}-{{course.endTime}}</p>
+        </div>
+        <div>
+          <p class="fw-bold text-center p-1">{{course.Tutor.name}}</p>
+        </div>
+        <div>
+          <a href="{{course.Tutor.link}}"><p class="fw-bold text-center p-1">{{course.Tutor.link}}</p></a>
+        </div>
+      </div>
+      {{else}}
+      <h5 class="modal-title fw-bold">預約失敗!</h5>
+      </div>
+      {{/if}}
+      <div class="modal-footer d-flex justify-content-center mt-1">
+        <a class="btn btn-primary" href="javascript:history.back()">OK</a>
+      </div>
+    </div>
+  </div>
+</div>
