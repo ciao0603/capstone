@@ -16,7 +16,7 @@
         </div>
         {{else}}
         <div>
-          {{#if tutor}}
+          {{#if reqUser.dataValues.isTeacher}}
           <a href="/tutors/{{reqUser.dataValues.tutorId}}" id="name-link" class="mx-1 fw-bold"
             style="text-decoration: none; color: black; font-size: 16px;">{{reqUser.dataValues.name}}</a>
           {{else}}

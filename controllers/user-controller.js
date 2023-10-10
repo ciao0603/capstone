@@ -115,7 +115,6 @@ const userController = {
         })
         // 取最先的兩個
         courses = courses.slice(0, SCHEDULE_LIMIT)
-        console.log(courses)
         res.render('user', { user, courses })
       })
       .catch(err => next(err))

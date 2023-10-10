@@ -33,8 +33,6 @@ const courseController = {
             const endTime = startTime.add(duration, 'minute')
             const formattedDate = new Date(date.format('YYYY-MM-DD'))
             const formattedStartTime = startTime.format('HH:mm:00')
-            const courses = await Course.findAll()
-            console.log(courses[0])
             // 確認時段是否已被預約
             const course = await Course.findOne({
               where: {
@@ -43,7 +41,6 @@ const courseController = {
                 }]
               }
             })
-            console.log(course)
             if (!course) {
               // 儲存這個課程時段
               times.push({
@@ -69,11 +66,8 @@ const courseController = {
     // 取得預約時間並轉成json
     const time = JSON.parse(req.body.time)
     const { date, dayOfWeek, startTime, endTime } = time
-    console.log(date)
     const formattedDate = new Date(date)
     const formattedStartTime = `${startTime}:00`
-
-    console.log(formattedDate)
 
     Course.findOne({
       // where 同老師 、 同一天 且 同時間
