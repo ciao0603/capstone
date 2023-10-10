@@ -18,7 +18,7 @@
       <div class="mb-3">
         <p class="mb-2"><strong>New Schedule</strong></p>
         <div class="d-flex row">
-          {{#each courses}}
+          {{#each schedules}}
           <div class="col-6 ">
             <div class="border border-3 rounded-3 p-3">
               <div>
@@ -35,8 +35,20 @@
           {{/each}}
         </div>
       </div>
-      <div>
-        lesson history
+      {{!-- lesson history --}}
+      <div class="mb-3">
+        <p class="mb-2"><strong>Lesson History</strong></p>
+        <div class="d-flex row">
+          {{#each histories}}
+          <div class="col-6 ">
+            <div class="d-flex flex-wrap justify-content-between align-items-center border border-3 rounded-3 p-3">
+                <i class="fa-regular fa-user"></i>
+                <p class="mx-2 mb-0"><strong>{{this.Tutor.name}}</strong></p>
+                <a class="ms-auto btn btn-primary" href="/comments/{{this.id}}">Score</a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
       </div>
       <div>
         rank

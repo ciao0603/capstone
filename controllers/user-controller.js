@@ -88,6 +88,7 @@ const userController = {
   getUser: (req, res, next) => {
     const userId = req.params.id
     const SCHEDULE_LIMIT = 2
+    const HISTORY_LIMIT = 4
     Promise.all([
       User.findByPk(userId, { raw: true }),
       Course.findAll({ where: { userId }, raw: true, nest: true, include: [Tutor] })
@@ -95,8 +96,9 @@ const userController = {
       .then(([user, courses]) => {
         const now = dayjs()
         const nowDate = now.format('YYYY-MM-DD')
+        // * New Schedule
         // 先找出尚未開始的課程
-        courses = courses.filter(course => {
+        let schedules = courses.filter(course => {
           const date = dayjs(course.date)
           const time = dayjs(course.startTime, 'HH:mm:ss')
           course.date = date.format('YYYY-MM-DD')
@@ -105,7 +107,7 @@ const userController = {
           return date.isAfter(now) || (course.date === nowDate && time.isAfter(now))
         })
         // 按照先後順序排
-        courses.sort((a, b) => {
+        schedules.sort((a, b) => {
           const dateA = dayjs(a.date)
           const dateB = dayjs(b.date)
           const timeA = dayjs(a.startTime, 'HH:mm:ss')
@@ -114,8 +116,28 @@ const userController = {
           return dateA - dateB || timeA - timeB
         })
         // 取最先的兩個
-        courses = courses.slice(0, SCHEDULE_LIMIT)
-        res.render('user', { user, courses })
+        schedules = schedules.slice(0, SCHEDULE_LIMIT)
+
+        // *Lesson History
+        // 先找出已結束f且尚未評分的課程
+        let histories = courses.filter(course => {
+          const date = dayjs(course.date)
+          const time = dayjs(course.endTime, 'HH:mm:00')
+          return (date.isBefore(now, 'day') || (course.date === nowDate && time.isBefore(now))) && !course.score
+        })
+        // 按照先後順序排(新的在前)
+        histories.sort((a, b) => {
+          const dateA = dayjs(a.date)
+          const dateB = dayjs(b.date)
+          const timeA = dayjs(a.startTime, 'HH:mm:ss')
+          const timeB = dayjs(b.startTime, 'HH:mm:ss')
+          // 若date相同就比time
+          return dateB - dateA || timeB - timeA
+        })
+        // 取最先的四個
+        histories = histories.slice(0, HISTORY_LIMIT)
+
+        res.render('user', { user, schedules, histories })
       })
       .catch(err => next(err))
   },
