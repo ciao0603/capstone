@@ -12,7 +12,7 @@ const courseController = require('../controllers/course-controller')
 router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/users/tutors', authenticated, userController.getTutors)
-router.get('/users/search', authenticated, userController.searchTutors)
+// router.get('/users/search', authenticated, userController.searchTutors)
 router.get('/users/:id/edit', authenticated, userController.editUser)
 router.get('/users/:id', authenticated, userController.getUser)
 router.put('/users/:id', authenticated, userController.putUser)
