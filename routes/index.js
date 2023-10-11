@@ -12,7 +12,6 @@ const courseController = require('../controllers/course-controller')
 router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/users/tutors', authenticated, userController.getTutors)
-// router.get('/users/search', authenticated, userController.searchTutors)
 router.get('/users/:id/edit', authenticated, userController.editUser)
 router.get('/users/:id', authenticated, userController.getUser)
 router.put('/users/:id', authenticated, userController.putUser)
@@ -35,7 +34,7 @@ router.post('/signin', passport.authenticate('local', { failureRedirect: '/signu
 router.get('/logout', userController.logOut)
 
 // router.use('/', (req, res) => {
-//   res.redirect('/users/tutors')
+// res.redirect('/users/tutors')
 // })
 router.use('/', errorHandler)
 

@@ -88,14 +88,6 @@ const userController = {
       })
       .catch(err => next(err))
   },
-  // searchTutors: (req, res, next) => {
-  //   const KEYWORD = req.query.keyword || null
-  //   const keyword = KEYWORD.toLowerCase() || null
-  //   Tutor.findAll({ raw: true })
-  //     .then(tutorList => tutorList.filter(tutor => tutor.name.toLowerCase().includes(keyword)))
-  //     .then(tutors => res.render('index', { tutors }))
-  //     .catch(err => next(err))
-  // },
   getUser: (req, res, next) => {
     const userId = req.params.id
     const SCHEDULE_LIMIT = 2
