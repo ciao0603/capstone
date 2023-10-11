@@ -7,7 +7,7 @@ require('dayjs/locale/zh-cn')
 dayjs.locale('zh-cn')
 dayjs.extend(customParseFormat)
 
-const { Tutor, Course } = require('../models')
+const { User, Tutor, Course } = require('../models')
 
 const courseController = {
   getCourse: async (req, res, next) => {
@@ -69,10 +69,8 @@ const courseController = {
     const formattedDate = new Date(date)
     const formattedStartTime = `${startTime}:00`
 
-    Course.findOne({
-      // where 同老師 、 同一天 且 同時間
-      where: { [Op.and]: [{ tutorId }, { date: formattedDate }, { startTime: formattedStartTime }] }
-    })
+    // where 同老師 、 同一天 且 同時間
+    Course.findOne({ where: { [Op.and]: [{ tutorId }, { date: formattedDate }, { startTime: formattedStartTime }] } })
       .then(course => {
         if (!course) {
           return Course.create({
@@ -87,20 +85,24 @@ const courseController = {
       })
       .then(newCourse => {
         if (newCourse) {
-          return Course.findByPk(newCourse.id, {
-            raw: true,
-            nest: true,
-            include: [Tutor]
-          })
+          return Promise.all([
+            Course.findByPk(newCourse.id, {
+              raw: true,
+              nest: true,
+              include: [Tutor]
+            }),
+            User.findByPk(userId)
+          ])
         }
       })
-      .then(reserve => {
+      .then(([reserve, user]) => {
         if (reserve) {
           reserve.date = dayjs(reserve.date).format('YYYY-MM-DD')
           reserve.startTime = reserve.startTime.substring(0, 5)
           reserve.endTime = reserve.endTime.substring(0, 5)
         }
         res.render('course-reserve', { course: reserve })
+        return user.increment('totalMinutes', { by: reserve.Tutor.duration })
       })
       .catch(err => next(err))
   },

@@ -50,8 +50,16 @@
           {{/each}}
         </div>
       </div>
+      {{!-- user ranking --}}
       <div>
-        rank
+        <p class="mb-2"><strong>我的學習時數名次</strong></p>
+        <div class="m-2 px-2">
+          {{#ifEqual userIndex -1}}
+          <h3 class="fw-bold">查無名次</h3>
+          {{else}}
+          <h3 class="fw-bold">第 {{increment userIndex}} 名</h3>
+          {{/ifEqual}}
+        </div>
       </div>
     </div>
   </div>

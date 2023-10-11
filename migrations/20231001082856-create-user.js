@@ -28,8 +28,9 @@ module.exports = {
       introduction: {
         type: Sequelize.TEXT
       },
-      total_hours: {
-        type: Sequelize.INTEGER
+      total_minutes: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       nation: {
         type: Sequelize.STRING

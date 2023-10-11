@@ -7,5 +7,8 @@ module.exports = {
   },
   toJSON: function (object) {
     return JSON.stringify(object)
+  },
+  increment: function (index) {
+    return index + 1
   }
 }

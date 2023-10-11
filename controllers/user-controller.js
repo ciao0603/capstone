@@ -50,9 +50,10 @@ const userController = {
   },
   getTutors: (req, res, next) => {
     const { email } = req.user
-    const DEFAULT_LIMIT = 6
+    const TUTORS_LIMIT = 6
+    const RANKING_LIMIT = 7
     const page = Number(req.query.page) || 1
-    const limit = Number(req.query.limit) || DEFAULT_LIMIT
+    const limit = Number(req.query.limit) || TUTORS_LIMIT
     const offset = getOffset(limit, page)
 
     Promise.all([
@@ -61,17 +62,20 @@ const userController = {
         offset,
         raw: true
       }),
-      Tutor.findOne({ where: { email }, raw: true })
+      Tutor.findOne({ where: { email }, raw: true }),
+      User.findAll({ raw: true })
     ])
 
-      .then(([tutors, tutor]) => {
+      .then(([tutors, tutor, users]) => {
         const data = tutors.rows.map(t => ({
           ...t,
           introduction: t.introduction.substring(0, 100) + '...'
         }))
+        const userList = users.sort((a, b) => b.totalMinutes - a.totalMinutes).slice(0, RANKING_LIMIT)
         res.render('index', {
           tutors: data,
           tutor,
+          users: userList,
           pagination: getPagination(limit, page, tutors.count)
         })
       })
@@ -90,10 +94,13 @@ const userController = {
     const SCHEDULE_LIMIT = 2
     const HISTORY_LIMIT = 4
     Promise.all([
+      User.findAll({ raw: true }),
       User.findByPk(userId, { raw: true }),
       Course.findAll({ where: { userId }, raw: true, nest: true, include: [Tutor] })
     ])
-      .then(([user, courses]) => {
+      .then(([users, user, courses]) => {
+        if (!user) throw new Error('用戶不存在!')
+
         const now = dayjs()
         const nowDate = now.format('YYYY-MM-DD')
         // * New Schedule
@@ -137,7 +144,12 @@ const userController = {
         // 取最先的四個
         histories = histories.slice(0, HISTORY_LIMIT)
 
-        res.render('user', { user, schedules, histories })
+        // *user ranking
+        const userList = users.sort((a, b) => b.totalMinutes - a.totalMinutes)
+        console.log(userId)
+        const userIndex = userList.findIndex(user => { return user.id === Number(userId) })
+
+        res.render('user', { user, schedules, histories, userIndex })
       })
       .catch(err => next(err))
   },
