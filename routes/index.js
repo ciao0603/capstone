@@ -19,6 +19,8 @@ router.put('/users/:id', authenticated, userController.putUser)
 
 router.get('/users/tutors/:id', authenticated, courseController.getCourse)
 router.post('/courses/:id', authenticated, courseController.postCourse)
+router.get('/comments/:id', authenticated, courseController.getComment)
+router.post('/comments/:id', authenticated, courseController.postComment)
 
 router.get('/tutors/create', authenticated, tutorController.createTutor)
 router.get('/tutors/:id', authenticated, tutorController.getTutor)

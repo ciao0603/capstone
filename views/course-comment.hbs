@@ -1,0 +1,22 @@
+<div class="container border border-3 rounded-3 mt-3 col-md-6">
+  <form action="/comments/{{courseId}}" method="POST">
+    <div>
+      <div class="d-flex justify-content-center mt-4">
+        <h5 class="fw-bold">分享本次的課程體驗</h5>
+      </div>
+      <div class="d-flex-row mt-3 p-2">
+        <div class="form-floating mb-3">
+          <input type="number" step="0.1" min="1" max="5" class="form-control" id="score" name="score" required>
+          <label for="score">請選擇分數</label>
+        </div>
+        <div class="form-floating">
+          <textarea class="form-control" id="comment" name="comment"></textarea>
+          <label for="comment">Comments</label>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center my-3">
+      <button type="submit" class="btn btn-primary">Summit</button>
+    </div>
+  </form>
+</div>

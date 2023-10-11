@@ -103,6 +103,32 @@ const courseController = {
         res.render('course-reserve', { course: reserve })
       })
       .catch(err => next(err))
+  },
+  getComment: (req, res, next) => {
+    const courseId = req.params.id
+    Course.findByPk(courseId)
+      .then(course => {
+        if (!course) throw new Error('課程不存在!')
+        if (course.score) throw new Error('此課程已評過分!')
+        res.render('course-comment', { courseId })
+      })
+      .catch(err => next(err))
+  },
+  postComment: (req, res, next) => {
+    const userId = req.user.id
+    const courseId = req.params.id
+    const { score, comment } = req.body
+    console.log(userId, courseId, score, comment)
+    Course.findByPk(courseId)
+      .then(course => {
+        if (!score) throw new Error('Score is required !')
+        console.log('find and update')
+        return course.update({ score, comment })
+      })
+      .then(() => {
+        console.log('render')
+        res.redirect(`/users/${userId}`)
+      })
   }
 }
 
