@@ -22,7 +22,7 @@ const courseController = {
       const courseCount = 180 / duration // 每個晚上開課的次數
 
       // 從當天開始加14天
-      for (let d = 0; d < 14; d++) {
+      for (let d = 1; d <= 14; d++) {
         const date = today.add(d, 'day')
         const dayOfWeek = date.day().toString()
         // 若是date的星期和tutor可以上課的星期一樣
