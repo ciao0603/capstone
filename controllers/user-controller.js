@@ -30,6 +30,7 @@ const userController = {
           password: hash,
           name: faker.name.findName(),
           introduction: faker.lorem.text(),
+          nation: faker.address.country(),
           image: `https://loremflickr.com/g/350/350/portrait/?random=${(Math.random() * 100)}`
         })
       })

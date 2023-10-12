@@ -8,7 +8,7 @@ const tutorController = {
   },
   postTutor: (req, res, next) => {
     const { introduction, style, duration, link, availableDays } = req.body
-    const { id, name, image, email } = req.user
+    const { id, name, image, email, nation } = req.user
     if (!(introduction && style && duration && link && availableDays)) throw new Error('尚有欄位未填!')
     const selectedDays = Array.isArray(availableDays) ? availableDays.join('') : availableDays
     User.findByPk(id)
@@ -16,7 +16,7 @@ const tutorController = {
         if (user.isTeacher) throw new Error('已申請過成為老師!')
         return Promise.all([
           Tutor.create({
-            name, image, email, introduction, style, duration, link, availableDays: selectedDays
+            name, image, email, nation, introduction, style, duration, link, availableDays: selectedDays
           }),
           user
         ])

@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     link: DataTypes.STRING,
     duration: DataTypes.INTEGER,
     availableDays: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    nation: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Tutor',
