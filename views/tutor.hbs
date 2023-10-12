@@ -6,24 +6,56 @@
         <div class="m-2">
           <h2 class="fw-bold mb-3">{{tutor.name}}</h2>
           <p class="fw-bold"><i class="fa-solid fa-house me-2"></i>{{tutor.nation}}</p>
-          <strong><i class="fa-solid fa-heart" style="color: #ee3211;"></i> 4.5</strong>
-          <br>
-          <strong><i class="fa-solid fa-user"></i> About Me</strong>
-          <p>{{tutor.introduction}}</p>
+          <strong><i class="fa-solid fa-heart me-2" style="color: #ee3211;"></i>{{averageScore}}</strong>
+          <div class="mt-2">
+            <strong><i class="fa-solid fa-user"></i> About Me</strong>
+            <p>{{tutor.introduction}}</p>
+          </div>
+
         </div>
       </div>
     </div>
     <div class="col-7">
-      <div class="mb-4">
-        <p class="mb-2"><strong class="mb-3">New Schedule</strong>
+      {{!-- new schedule --}}
+      <div class="mb-3">
+        <p class="mb-2"><strong>New Schedule</strong></p>
+        <div class="d-flex row">
+          {{#each schedules}}
+          <div class="col-6 ">
+            <div class="border border-3 rounded-3 p-3">
+              <div>
+                <p class="mb-2"><strong>Time: </strong>{{this.date}} ({{this.dayOfWeek}})
+                  {{this.startTime}}-{{this.endTime}}
+                </p>
+              </div>
+              <div>
+                <p class="mb-2"><strong>Student's Name: </strong>{{this.User.name}}</p>
+              </div>
+              <div>
+                <p class="mb-2 text-break"><strong>Session Link: </strong><a
+                    href="{{this.Tutor.link}}">{{this.Tutor.link}}</a></p>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
       </div>
+      {{!-- teaching style --}}
       <div class="mb-4">
         <p class="mb-2"><strong class="mb-3">Your Teaching Style</strong>
         </p>
         <p>{{tutor.style}}</p>
       </div>
-      <div class="mb-4">
+      {{!-- comments --}}
+      <div class="mb-3">
         <p class="mb-2"><strong class="mb-3">Recent Reviewed</strong>
+          {{#each recentComments}}
+        <div class="d-flex align-items-center">
+          <p class="fw-bold bg-warning bg-opacity-75 p-1">{{this.score}}</p>
+          <p class="fw-bold mx-2">{{this.User.name}}</p>
+          <p class="mx-2 d-flex flex-wrap">{{this.comment}}</p>
+        </div>
+        {{/each}}
       </div>
       <div class="m-3" style="text-align: right;">
         <a class="btn btn-primary" style="font-size:12px;" href="/tutors/{{tutor.id}}/edit">Edit Profile & <br> Booking

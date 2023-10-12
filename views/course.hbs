@@ -7,7 +7,7 @@
         </div>
         <div class="col-7 d-flex flex-column justify-content-end">
           <h2><strong>{{tutor.name}}</strong></h2>
-          <strong><i class="fa-solid fa-heart" style="color: #ee3211;"></i> 4.5</strong>
+          <strong><i class="fa-solid fa-heart me-2" style="color: #ee3211;"></i>{{averageScore}}</strong>
         </div>
       </div>
       <div>
@@ -20,9 +20,19 @@
           {{tutor.style}}
         </div>
         <p class="mb-2"><strong class="mb-3">Lesson History</strong></p>
-        <div class="mb-4">
-          {{!-- #each comments --}}
+        {{#each highestComment}}
+        <div class="d-flex align-items-center">
+          <p class="fw-bold bg-warning bg-opacity-75 p-1">{{this.score}}</p>
+          <p class="mx-2 d-flex flex-wrap">{{this.comment}}</p>
         </div>
+        {{/each}}
+        {{#each lowestComment}}
+        <div class="d-flex align-items-center">
+          <p class="fw-bold bg-warning bg-opacity-75 p-1">{{this.score}}</p>
+          <p class="fw-bold mx-2">{{this.User.name}}</p>
+          <p class="mx-2 d-flex flex-wrap">{{this.comment}}</p>
+        </div>
+        {{/each}}
       </div>
     </div>
     <div class="col-4">
@@ -33,7 +43,8 @@
           </strong></div>
         <select class="form-select" id="time" name="time">
           {{#each times}}
-          <option value="{{toJSON this}}">{{this.date}} ({{this.dayOfWeek}}) {{this.startTime}}-{{this.endTime}}</option>
+          <option value="{{toJSON this}}">{{this.date}} ({{this.dayOfWeek}}) {{this.startTime}}-{{this.endTime}}
+          </option>
           {{/each}}
         </select>
         <div class="mt-4 text-end">

@@ -1,11 +1,9 @@
 const dayjs = require('dayjs')
-const customParseFormat = require('dayjs/plugin/customParseFormat')
 
 const { Op } = require('sequelize')
 // 設置dayjs為中文
 require('dayjs/locale/zh-cn')
 dayjs.locale('zh-cn')
-dayjs.extend(customParseFormat)
 
 const { User, Tutor, Course } = require('../models')
 
@@ -13,17 +11,20 @@ const courseController = {
   getCourse: async (req, res, next) => {
     try {
       const tutorId = req.params.id
+      const COMMENT_MIX_LIMIT = 2
+      const COMMENT_MINI_LIMIT = 2
       const times = []
-      const today = dayjs()
+      const now = dayjs()
 
       const tutor = await Tutor.findByPk(tutorId, { raw: true })
       if (!tutor) throw new Error('這位家教不存在!')
       const { duration, availableDays } = tutor
       const courseCount = 180 / duration // 每個晚上開課的次數
 
+      // *Generate Times
       // 從當天開始加14天
       for (let d = 1; d <= 14; d++) {
-        const date = today.add(d, 'day')
+        const date = now.add(d, 'day')
         const dayOfWeek = date.day().toString()
         // 若是date的星期和tutor可以上課的星期一樣
         if (availableDays.includes(dayOfWeek)) {
@@ -55,7 +56,39 @@ const courseController = {
           }
         }
       }
-      res.render('course', { tutor, times })
+
+      // *Lesson History
+      console.log('now', now)
+      const courses = await Course.findAll({ where: { tutorId }, raw: true })
+      // 先找出已結束且有評分的課程
+      const comments = courses.filter(course => {
+        const nowDate = now.format('YYYY-MM-DD')
+        const date = dayjs(course.date)
+        const time = dayjs(course.endTime, 'HH:mm:00')
+        console.log(course.id, time)
+        return (date.isBefore(now) || (course.date === nowDate && time.isBefore(now))) && course.score
+      })
+      // 按照評分(高>低)排
+      comments.sort((a, b) => {
+        const scoreA = a.score
+        const scoreB = b.score
+        return scoreB - scoreA
+      })
+      // 最多取前後各兩個(最高分和最低分)
+      let highestComment = []
+      let lowestComment = []
+      if (comments.length >= 4) {
+        highestComment = comments.slice(0, COMMENT_MIX_LIMIT)
+        lowestComment = comments.slice(-COMMENT_MINI_LIMIT)
+      } else if (comments.length < 4 && comments.length > 0) {
+        highestComment = comments
+      }
+      // console.log(comments)
+      // 計算平均分數
+      const totalScore = comments.reduce((sum, c) => sum + c.score, 0)
+      const averageScore = (totalScore / comments.length).toFixed(1) || '尚無評價'
+
+      res.render('course', { tutor, times, highestComment, lowestComment, averageScore })
     } catch (err) {
       next(err)
     }
