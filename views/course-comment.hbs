@@ -1,8 +1,11 @@
 <div class="container border border-3 rounded-3 mt-3 col-md-6">
-  <form action="/comments/{{courseId}}" method="POST">
+  <form action="/comments/{{course.id}}" method="POST">
     <div>
       <div class="d-flex justify-content-center mt-4">
         <h5 class="fw-bold">分享本次的課程體驗</h5>
+      </div>
+      <div class="d-flex justify-content-center mt-4">
+        <h5 class="fw-bold">{{course.date}} ({{course.dayOfWeek}}) {{course.startTime}}-{{course.endTime}}</h5>
       </div>
       <div class="d-flex-row mt-3 p-2">
         <div class="form-floating mb-3">

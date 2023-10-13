@@ -141,11 +141,14 @@ const courseController = {
   },
   getComment: (req, res, next) => {
     const courseId = req.params.id
-    Course.findByPk(courseId)
+    Course.findByPk(courseId, { raw: true })
       .then(course => {
         if (!course) throw new Error('課程不存在!')
         if (course.score) throw new Error('此課程已評過分!')
-        res.render('course-comment', { courseId })
+        course.date = dayjs(course.date).format('YYYY-MM-DD')
+        course.startTime = course.startTime.substring(0, 5)
+        course.endTime = course.endTime.substring(0, 5)
+        res.render('course-comment', { course })
       })
       .catch(err => next(err))
   },
