@@ -36,6 +36,7 @@
       </div>
     </div>
     <div class="col-4">
+      {{#ifEqual reqUser.dataValues.isAdmin false}}
       {{#ifEqual reqUser.dataValues.isTeacher false}}
       <form action="/courses/{{tutor.id}}" method="POST">
         <div class="form-label  p-2 mb-4 bg-secondary bg-opacity-50" for="time"><strong>
@@ -51,6 +52,7 @@
           <button type="submit" class="btn btn-primary">Summit</button>
         </div>
       </form>
+      {{/ifEqual}}
       {{/ifEqual}}
     </div>
   </div>

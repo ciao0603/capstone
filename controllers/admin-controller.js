@@ -13,10 +13,14 @@ const adminController = {
       offset,
       raw: true
     })
-      .then(users => res.render('admin/users', {
-        users: users.rows,
-        pagination: getPagination(limit, page, users.count)
-      }))
+      .then(users => {
+        let data = users.rows
+        data = data.filter(u => u.isAdmin !== 1)
+        res.render('admin/users', {
+          users: data,
+          pagination: getPagination(limit, page, users.count)
+        })
+      })
       .catch(err => next(err))
   }
 }
