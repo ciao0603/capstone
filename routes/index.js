@@ -5,9 +5,12 @@ const passport = require('../config/passport')
 const { authenticated, authenticatedAdmin } = require('../middleware/auth')
 const { errorHandler } = require('../middleware/error-handler')
 const admin = require('./modules/admin')
+const auth = require('./modules/auth')
 const userController = require('../controllers/user-controller')
 const tutorController = require('../controllers/tutor-controller')
 const courseController = require('../controllers/course-controller')
+
+router.use('/auth', auth)
 
 router.use('/admin', authenticatedAdmin, admin)
 

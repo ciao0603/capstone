@@ -3,7 +3,9 @@
     <div class="col-5">
       {{!-- profile --}}
       <div class="m-2">
-        <img src="{{user.image}}" class="img-fluid" alt="頭像">
+        <div style="max-width: 350px;">
+          <img src="{{user.image}}" class="img-fluid" style="width: 100%; height:auto;" alt="頭像">
+        </div>
         <div class="m-2">
           <h2 class="fw-bold my-3">{{user.name}}</h2>
           <p class="fw-bold"><i class="fa-solid fa-house me-2"></i>{{user.nation}}</p>
@@ -22,13 +24,15 @@
           <div class="col-6 ">
             <div class="border border-3 rounded-3 p-3">
               <div>
-                <p class="mb-2"><strong>Time: </strong>{{this.date}} ({{this.dayOfWeek}}) {{this.startTime}}-{{this.endTime}}</p>
+                <p class="mb-2"><strong>Time: </strong>{{this.date}} ({{this.dayOfWeek}})
+                  {{this.startTime}}-{{this.endTime}}</p>
               </div>
               <div>
                 <p class="mb-2"><strong>Teacher's Name: </strong>{{this.Tutor.name}}</p>
               </div>
               <div>
-                <p class="mb-2 text-break"><strong>Session Link: </strong><a href="{{this.Tutor.link}}">{{this.Tutor.link}}</a></p>
+                <p class="mb-2 text-break"><strong>Session Link: </strong><a
+                    href="{{this.Tutor.link}}">{{this.Tutor.link}}</a></p>
               </div>
             </div>
           </div>
@@ -42,9 +46,10 @@
           {{#each histories}}
           <div class="col-6 ">
             <div class="d-flex flex-wrap justify-content-between align-items-center border border-3 rounded-3 p-3">
-                <div class="col-2"><img src="{{this.Tutor.image}}" class="rounded-circle float-start" style="width: 100%; height: auto;" alt="userImage"></div>
-                <p class="mx-2 mb-0"><strong>{{this.Tutor.name}}</strong></p>
-                <a class="ms-auto btn btn-primary" href="/comments/{{this.id}}">Score</a>
+              <div class="col-2"><img src="{{this.Tutor.image}}" class="rounded-circle float-start"
+                  style="width: 100%; height: auto;" alt="userImage"></div>
+              <p class="mx-2 mb-0"><strong>{{this.Tutor.name}}</strong></p>
+              <a class="ms-auto btn btn-primary" href="/comments/{{this.id}}">Score</a>
             </div>
           </div>
           {{/each}}

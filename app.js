@@ -4,21 +4,24 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const hbsHelper = require('./helpers/hbs-helper')
 const passport = require('./config/passport')
 const { getUser } = require('./helpers/auth-helper')
 const routes = require('./routes')
 
 const app = express()
-const port = process.env.PORT || 3000
-const SESSION_SECRET = process.env.SESSION_SECRET || 'secret'
+const port = process.env.PORT
 
 app.engine('hbs', exphbs({ extname: '.hbs', helpers: hbsHelper }))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(session({
-  secret: SESSION_SECRET,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }))

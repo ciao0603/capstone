@@ -15,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "dayjs": "^1.10.6",
+    "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
@@ -27,6 +28,7 @@
     "method-override": "^3.0.0",
     "mysql2": "^2.3.0",
     "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "sequelize": "^6.6.5",
     "sequelize-cli": "^6.2.0"
