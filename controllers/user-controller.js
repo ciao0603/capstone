@@ -82,6 +82,7 @@ const userController = {
           introduction: t.introduction.substring(0, 100) + '...'
         }))
         // ranking list
+        users = users.filter(u => u.totalMinutes !== 0)
         const userList = users.sort((a, b) => b.totalMinutes - a.totalMinutes).slice(0, RANKING_LIMIT)
         res.render('index', {
           tutors: data,
