@@ -61,8 +61,6 @@ const userController = {
 
     Promise.all([
       Tutor.findAndCountAll({
-        limit,
-        offset,
         raw: true
       }),
       Tutor.findOne({ where: { email }, raw: true }),
@@ -70,17 +68,19 @@ const userController = {
     ])
 
       .then(([tutors, tutor, users]) => {
+        let allTutors = tutors.rows
         let total = tutors.count
+        // search function
+        if (keyword) {
+          allTutors = allTutors.filter(t => t.name.toLowerCase().includes(keyword) || t.introduction.toLowerCase().includes(keyword))
+          total = allTutors.length
+        }
         // show tutors
-        let data = tutors.rows.map(t => ({
+        allTutors = allTutors.slice(offset, offset + limit)
+        const data = allTutors.map(t => ({
           ...t,
           introduction: t.introduction.substring(0, 100) + '...'
         }))
-        // search function
-        if (keyword) {
-          data = data.filter(t => t.name.toLowerCase().includes(keyword) || t.introduction.toLowerCase().includes(keyword))
-          total = data.length
-        }
         // ranking list
         const userList = users.sort((a, b) => b.totalMinutes - a.totalMinutes).slice(0, RANKING_LIMIT)
         res.render('index', {
