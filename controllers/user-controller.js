@@ -149,7 +149,6 @@ const userController = {
 
         // *user ranking
         const userList = users.sort((a, b) => b.totalMinutes - a.totalMinutes)
-        console.log(userId)
         const userIndex = userList.findIndex(user => { return user.id === Number(userId) })
 
         res.render('user', { user, schedules, histories, userIndex })
