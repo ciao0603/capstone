@@ -32,6 +32,7 @@ const userController = {
     userService.putUser(req, (err, data) => {
       if (err) return next(err)
       req.flash('success_msg', '修改成功!')
+      res.session.updatedData = data
       return res.redirect(`/users/${data.user.id}`)
     })
   }
