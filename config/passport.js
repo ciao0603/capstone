@@ -29,19 +29,20 @@ passport.use(new GoogleStrategy({
   callbackURL: process.env.GOOGLE_CALLBACK,
   profileFields: ['email', 'displayName'],
   passReqToCallback: true
-}, (accessToken, refreshToken, req, profile, cb) => {
-  console.log(profile)
-  const { name, email, picture } = profile._json
-  console.log(picture)
-  User.findOne({ where: { email } })
-    .then(user => {
-      if (user) return cb(null, user)
-      const randomPassword = Math.random().toString(36).slice(-8)
-      return bcrypt.hash(randomPassword, 10)
-    })
-    .then(hash => User.create({ name, email, password: hash, image: picture }))
-    .then(user => cb(null, user))
-    .catch(err => cb(err, false))
+}, async (accessToken, refreshToken, req, profile, cb) => {
+  try {
+    const { name, email, picture } = profile._json
+    const user = await User.findOne({ where: { email } })
+    // 已註冊過就直接登入
+    if (user) return cb(null, user)
+    // 未註冊則產生隨機密碼後 create
+    const randomPassword = Math.random().toString(36).slice(-8)
+    const hash = bcrypt.hash(randomPassword, 10)
+    const newUser = User.create({ name, email, password: hash, image: picture })
+    return cb(null, newUser)
+  } catch (err) {
+    cb(err, false)
+  }
 }))
 
 passport.serializeUser((user, cb) => {
