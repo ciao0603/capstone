@@ -19,7 +19,7 @@ const tutorController = {
     tutorService.putTutor(req, (err, data) => {
       if (err) return next(err)
       req.flash('success_msg', '修改成功!')
-      res.session.updatedData = data
+      req.session.updatedData = data
       res.redirect(`/tutors/${data.tutor.id}`)
     })
   }
