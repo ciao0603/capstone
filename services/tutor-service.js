@@ -106,7 +106,7 @@ const tutorService = {
     try {
       const userId = req.user.id
       const tutorId = req.params.id
-      const { name, introduction, style, duration, link, availableDays } = req.body
+      const { name, nation, introduction, style, duration, link, availableDays } = req.body
       const selectedDays = Array.isArray(availableDays) ? availableDays.join('') : availableDays
       if (!(introduction && style && duration && link && availableDays)) throw new Error('尚有欄位未填!')
 
@@ -115,7 +115,7 @@ const tutorService = {
       const user = await User.findByPk(userId)
       // 更新資料
       const updatedTutor = await tutor.update({
-        name, introduction, style, duration, link, availableDays: selectedDays
+        name, nation, introduction, style, duration, link, availableDays: selectedDays
       })
       const updatedUser = await user.update({ name: name })
 

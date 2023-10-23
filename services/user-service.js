@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs')
-const faker = require('faker')
 const dayjs = require('dayjs')
 
 const { User, Tutor, Course } = require('../models')
@@ -8,10 +7,9 @@ const { getOffset, getPagination } = require('../helpers/pagination-helper')
 const userService = {
   signUp: async (req, cb) => {
     try {
-      const { email, password, passwordCheck } = req.body
+      const { name, nation, email, password, passwordCheck } = req.body
       // 確保資料填寫正確
-      if (!email) throw new Error('Email is required !')
-      if (!password) throw new Error('Password is required !')
+      if (!(name && nation && email && password)) throw new Error('尚有欄位未填!')
       if (password !== passwordCheck) throw new Error('Passwords do not match !')
       // 確認尚未註冊過
       const user = await User.findOne({ where: { email } })
@@ -19,9 +17,10 @@ const userService = {
       // 產生user
       const hash = await bcrypt.hash(password, 10)
       const newUser = await User.create({
+        name,
+        nation,
         email,
         password: hash,
-        nation: faker.address.country(),
         image: `https://loremflickr.com/g/350/350/portrait/?random=${(Math.random() * 100)}`
       })
 
@@ -155,12 +154,13 @@ const userService = {
   putUser: async (req, cb) => {
     try {
       const userId = req.params.id
-      const { name, introduction } = req.body
+      const { name, nation, introduction } = req.body
       console.log(name, introduction)
       const user = await User.findByPk(userId)
       if (!user) throw new Error('使用者尚未註冊!')
       const updatedUser = await user.update({
         name,
+        nation,
         introduction
       })
       console.log(updatedUser)
