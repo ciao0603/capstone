@@ -37,8 +37,8 @@ passport.use(new GoogleStrategy({
     if (user) return cb(null, user)
     // 未註冊則產生隨機密碼後 create
     const randomPassword = Math.random().toString(36).slice(-8)
-    const hash = bcrypt.hash(randomPassword, 10)
-    const newUser = User.create({ name, email, password: hash, image: picture })
+    const hash = await bcrypt.hash(randomPassword, 10)
+    const newUser = await User.create({ name, email, password: hash, image: picture })
     return cb(null, newUser)
   } catch (err) {
     cb(err, false)
