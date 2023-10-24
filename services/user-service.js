@@ -155,7 +155,6 @@ const userService = {
     try {
       const userId = req.params.id
       const { name, nation, introduction } = req.body
-      console.log(name, introduction)
       const user = await User.findByPk(userId)
       if (!user) throw new Error('使用者尚未註冊!')
       const updatedUser = await user.update({
@@ -163,7 +162,6 @@ const userService = {
         nation,
         introduction
       })
-      console.log(updatedUser)
 
       cb(null, { user: updatedUser })
     } catch (err) {
