@@ -33,7 +33,7 @@ module.exports = {
       await queryInterface.sequelize.transaction(async () => {
         // 插入fixedTutor
         const insertFixedTutor = await Tutor.create(fixedTutor)
-        await queryInterface.sequelize.query('UPDATE tutors SET available_days = :days WHERE id = :userId', {
+        await queryInterface.sequelize.query('UPDATE Tutors SET available_days = :days WHERE id = :userId', {
           replacements: {
             days: `${generateAvailableDays()}`,
             userId: insertFixedTutor.id
@@ -71,7 +71,7 @@ module.exports = {
             i -= 1
           } else {
             const insertNewTutor = await Tutor.create(newTutor)
-            await queryInterface.sequelize.query('UPDATE tutors SET available_days = :days WHERE id = :userId', {
+            await queryInterface.sequelize.query('UPDATE Tutors SET available_days = :days WHERE id = :userId', {
               replacements: {
                 days: `${generateAvailableDays()}`,
                 userId: insertNewTutor.id
