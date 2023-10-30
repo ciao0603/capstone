@@ -89,14 +89,14 @@ ctrl+C
 
 ## 測試帳號
 可使用以下三個帳號進行各種身分的測試
-- 管理者
+- 管理者  
   帳號: root@example.com  
   密碼: 12345678
-- user1
+- user1  
   身分: 學生  
   帳號: user1@example.com  
   密碼: 12345678
-- user2
+- user2  
   身分: 老師  
   帳號: user2@example.com  
   密碼: 12345678
