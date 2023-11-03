@@ -121,10 +121,9 @@ const courseService = {
         // 增加 user 學習時數
         const user = await User.findByPk(userId)
         await user.increment('totalMinutes', { by: reserve.Tutor.duration })
-
-        cb(null, { course: reserve })
+        cb(null, { course: reserve, tutorId })
       }
-      cb(null, {})
+      cb(null, { tutorId })
     } catch (err) {
       cb(err)
     }
