@@ -79,7 +79,7 @@ const tutorService = {
       const recentComments = comments.slice(0, COMMENT_LIMIT)
       // * tutor分數
       const totalScore = comments.reduce((sum, c) => sum + c.score, 0)
-      const averageScore = (totalScore / comments.length).toFixed(1) || '尚無評價'
+      const averageScore = totalScore === 0 ? '尚無評價' : (totalScore / comments.length).toFixed(1)
 
       cb(null, {
         tutor,
